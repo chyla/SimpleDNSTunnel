@@ -3,6 +3,7 @@
 
 m4_include([m4/ax_cxx_compile_stdcxx_11.m4])
 m4_include([m4/ax_boost_base.m4])
+m4_include([m4/ax_boost_program_options.m4])
 m4_include([m4/ax_boost_unit_test_framework.m4])
 
 AC_PREREQ([2.69])
@@ -18,7 +19,13 @@ AC_PROG_CXX
 AC_PROG_CC
 
 # Checks for libraries.
-AX_BOOST_BASE([1.55]) #, [], [AC_MSG_ERROR([cannot find Boost libraries])])
+AX_BOOST_BASE([1.55], [], [AC_MSG_ERROR([cannot find Boost libraries])])
+
+AX_BOOST_PROGRAM_OPTIONS
+if test "$ax_cv_boost_program_options" != "yes"; then
+    AC_MSG_ERROR([cannot find the Boost Program Options library])
+fi
+
 AX_BOOST_UNIT_TEST_FRAMEWORK
 
 # Checks for header files.
@@ -27,4 +34,4 @@ AX_BOOST_UNIT_TEST_FRAMEWORK
 
 # Checks for library functions.
 
-AC_OUTPUT(Makefile src/Makefile tests/Makefile)
+AC_OUTPUT(Makefile src/Makefile tests/Makefile etc/Makefile)
