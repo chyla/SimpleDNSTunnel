@@ -7,6 +7,7 @@
 #include <regex>
 #include <sstream>
 #include <string>
+#include <boost/log/trivial.hpp>
 
 #include "ProgramOptions.h"
 #include "BadOptionValueException.h"
@@ -67,6 +68,7 @@ ProgramOptions::Parse()
 	variables);
 
   if (!config_file_path.empty()) {
+    BOOST_LOG_TRIVIAL(info) << "Reading config file: " << config_file_path;
     OpenConfigFile();
     store(parse_config_file(config_file, general_options),
 	  variables);
