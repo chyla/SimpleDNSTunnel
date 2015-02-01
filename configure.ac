@@ -68,6 +68,14 @@ AX_BOOST_LOG
 AX_BOOST_LOG_SETUP
 
 # Checks for header files.
+AC_CHECK_HEADERS(sys/socket.h, [], [AC_MSG_ERROR([cannot find sys/socket.h])])
+AC_CHECK_HEADERS(linux/if.h, [], [AC_MSG_ERROR([cannot find linux/if.h])], [#include <sys/socket.h>])
+AC_CHECK_HEADERS(linux/if_tun.h, [], [AC_MSG_ERROR([cannot find linux/if_tun.h])])
+AC_CHECK_HEADERS(sys/ioctl.h, [], [AC_MSG_ERROR([cannot find sys/ioctl.h])])
+AC_CHECK_HEADERS(sys/types.h, [], [AC_MSG_ERROR([cannot find sys/types.h])])
+AC_CHECK_HEADERS(sys/stat.h, [], [AC_MSG_ERROR([cannot find sys/stat.h])])
+AC_CHECK_HEADERS(fcntl.h, [], [AC_MSG_ERROR([cannot find fcntl.h])])
+AC_CHECK_HEADERS(unistd.h, [], [AC_MSG_ERROR([cannot find unistd.h])])
 
 # Checks for typedefs, structures, and compiler characteristics.
 
