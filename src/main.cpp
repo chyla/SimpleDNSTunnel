@@ -26,7 +26,8 @@ main(int argc, char *argv[])
                                         << boost::log::trivial::severity
                                         << ">\t"
                                         << expr::smessage
-      )
+			   ),
+      keywords::auto_flush = true
     );
     BOOST_LOG_TRIVIAL(info) << "Starting SimpleDNSTunnel";
 
