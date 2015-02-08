@@ -7,7 +7,8 @@ AM_LDFLAGS		= @BOOST_LDFLAGS@
 bin_PROGRAMS		= sdnst
 sdnst_SOURCES		= main.cpp \
 				Options/ProgramOptions.cpp \
-				Interfaces/TunTap.cpp
+				Interfaces/TunTap.cpp \
+				Interfaces/Socket.cpp
 
 sdnst_LDADD		= @BOOST_PROGRAM_OPTIONS_LIB@ \
 				@BOOST_LOG_LIB@ \

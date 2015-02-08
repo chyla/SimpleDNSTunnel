@@ -76,6 +76,9 @@ AC_CHECK_HEADERS(sys/types.h, [], [AC_MSG_ERROR([cannot find sys/types.h])])
 AC_CHECK_HEADERS(sys/stat.h, [], [AC_MSG_ERROR([cannot find sys/stat.h])])
 AC_CHECK_HEADERS(fcntl.h, [], [AC_MSG_ERROR([cannot find fcntl.h])])
 AC_CHECK_HEADERS(unistd.h, [], [AC_MSG_ERROR([cannot find unistd.h])])
+AC_CHECK_HEADERS(sys/types.h, [], [AC_MSG_ERROR([cannot find sys/types.h])])
+AC_CHECK_HEADERS(sys/socket.h, [], [AC_MSG_ERROR([cannot find sys/socket.h])])
+AC_CHECK_HEADERS(arpa/inet.h, [], [AC_MSG_ERROR([cannot find arpa/inet.h])])
 
 # Checks for typedefs, structures, and compiler characteristics.
 
