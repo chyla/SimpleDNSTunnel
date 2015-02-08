@@ -19,4 +19,4 @@ tests_LDADD	= ../src/Options/ProgramOptions.o \
 			@PTHREAD_CFLAGS@
 
 check-local:
-	./test
+	./tests
