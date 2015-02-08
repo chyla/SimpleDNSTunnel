@@ -4,7 +4,7 @@
  */
 
 #include <cassert>
-#include <regex>
+#include <boost/regex.hpp>
 #include <sstream>
 #include <string>
 #include <boost/log/trivial.hpp>
@@ -18,6 +18,7 @@ namespace Options
 
 using namespace std;
 using namespace boost::program_options;
+using namespace boost;
 
 
 ProgramOptions::ProgramOptions() :
