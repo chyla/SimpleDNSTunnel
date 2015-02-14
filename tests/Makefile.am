@@ -4,8 +4,11 @@ AM_LDFLAGS		= @BOOST_LDFLAGS@
 
 check_PROGRAMS	= tests
 tests_SOURCES	= main.cpp \
-			ProgramOptions_ConfigFile.cpp
+			ProgramOptions_ConfigFile.cpp \
+			PseudoDNS.cpp
+
 tests_LDADD	= ../src/Options/ProgramOptions.o \
+			../src/Packets/PseudoDNS.o \
 			@BOOST_UNIT_TEST_FRAMEWORK_LIB@ \
 			@BOOST_PROGRAM_OPTIONS_LIB@ \
 			@BOOST_LOG_LIB@ \
