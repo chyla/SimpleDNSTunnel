@@ -8,7 +8,8 @@ bin_PROGRAMS		= sdnst
 sdnst_SOURCES		= main.cpp \
 				Options/ProgramOptions.cpp \
 				Interfaces/TunTap.cpp \
-				Interfaces/Socket.cpp
+				Interfaces/Socket.cpp \
+				Packets/PseudoDNS.cpp
 
 sdnst_LDADD		= @BOOST_PROGRAM_OPTIONS_LIB@ \
 				@BOOST_LOG_LIB@ \
