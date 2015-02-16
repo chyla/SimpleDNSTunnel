@@ -27,6 +27,24 @@ BOOST_AUTO_TEST_CASE( Constructor )
 }
 
 
+BOOST_AUTO_TEST_CASE( ControlPacket_Clone )
+{
+  Packet::Data data { 0x11 };
+  PseudoDNS packet(Packet::Type::CONTROL);
+  packet.SetData(data);
+  packet.SetControlType(Packet::Control::END_OF_TRANSMISSION);
+
+  std::unique_ptr<Packet> p = packet.Clone();
+
+  BOOST_CHECK(p->GetType() == packet.GetType());
+  BOOST_CHECK(p->GetControlType() == packet.GetControlType());
+
+  Packet::Data new_data = p->GetData();
+  BOOST_CHECK_EQUAL_COLLECTIONS(new_data.begin(), new_data.end(),
+				data.begin(), data.end());
+}
+
+
 BOOST_AUTO_TEST_CASE( DataPacket_ThrowOnSetControlType )
 {
   PseudoDNS packet(Packet::Type::DATA);

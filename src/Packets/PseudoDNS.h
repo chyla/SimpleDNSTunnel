@@ -35,6 +35,10 @@ public:
   virtual void FillFromDump(const Data &dump);
   virtual Data Dump() const;
 
+  virtual int GetMaximumDataSize() const;
+
+  virtual std::unique_ptr<Packet> Clone() const;
+
 private:
   Type type;
   Control control_type;

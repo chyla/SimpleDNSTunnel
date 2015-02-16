@@ -5,6 +5,10 @@
 
 #include <cstdint>
 #include <vector>
+#include <memory>
+
+#ifndef _PACKET_H_
+#define _PACKET_H_
 
 #ifndef _PACKET_H_
 #define _PACKET_H_
@@ -44,6 +48,10 @@ public:
 
   virtual void FillFromDump(const Data &dump) = 0;
   virtual Data Dump() const = 0;
+
+  virtual int GetMaximumDataSize() const = 0;
+
+  virtual std::unique_ptr<Packet> Clone() const = 0;
 };
 
 }
