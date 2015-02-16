@@ -144,4 +144,32 @@ BOOST_AUTO_TEST_CASE( Encapsulate_PartSizeFromUser_ThrowWhenBiggerThenMaxPacketS
   BOOST_CHECK_THROW(enc.SetPartSize(4), BadPartSizeException);
 }
 
+
+BOOST_AUTO_TEST_CASE( Encapsulator_Decapsulate )
+{
+  std::unique_ptr<Packet> prototype(new RawDataTests());
+  std::vector<std::unique_ptr<Packet>> packets;
+
+  packets.push_back(prototype->Clone());
+  packets.push_back(prototype->Clone());
+  packets.push_back(prototype->Clone());
+
+  Packet::Data source[3] {
+    { 0x00, 0x01, 0x02 },
+    { 0x03, 0x04, 0x05 },
+    { 0x06, 0x07 }
+  };
+
+  packets[0]->SetData(source[0]);
+  packets[1]->SetData(source[1]);
+  packets[2]->SetData(source[2]);
+
+  Encapsulator enc(std::move(prototype));
+  Packet::Data data = enc.Decapsulate(packets);
+
+  Packet::Data expected_data { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07 };
+  BOOST_CHECK_EQUAL_COLLECTIONS(data.begin(), data.end(),
+				expected_data.begin(), expected_data.end());
+}
+
 BOOST_AUTO_TEST_SUITE_END()
