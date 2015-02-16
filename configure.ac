@@ -37,6 +37,7 @@ if test "$ax_cv_boost_program_options" != "yes"; then
 fi
 
 AX_BOOST_UNIT_TEST_FRAMEWORK
+AM_CONDITIONAL(HAVE_BOOST_UNIT_TEST_FRAMEWORK, [test "x$ax_cv_boost_unit_test_framework" = "xyes"]) 
 
 AX_BOOST_THREAD
 if test "$ax_cv_boost_thread" != "yes"; then
