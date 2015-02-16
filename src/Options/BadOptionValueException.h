@@ -6,6 +6,9 @@
 #include <stdexcept>
 #include <string>
 
+#ifndef _BADOPTIONVALUEEXCEPTION_H_
+#define _BADOPTIONVALUEEXCEPTION_H_
+
 
 namespace Options
 {
@@ -20,3 +23,5 @@ public:
 };
 
 }
+
+#endif

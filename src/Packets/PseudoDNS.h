@@ -8,6 +8,9 @@
 
 #include "Packet.h"
 
+#ifndef _PSEUDODNS_H_
+#define _PSEUDODNS_H_
+
 
 namespace Packets
 {
@@ -39,3 +42,5 @@ private:
 };
 
 }
+
+#endif

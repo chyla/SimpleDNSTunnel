@@ -10,6 +10,9 @@
 
 #include "Interface.h"
 
+#ifndef _SOCKET_H_
+#define _SOCKET_H_
+
 struct sockaddr;
 
 
@@ -87,3 +90,5 @@ private:
 };
 
 }
+
+#endif

@@ -6,6 +6,10 @@
 #include <stdexcept>
 #include <string>
 
+#ifndef _TOOMUCHDATAEXCEPTION_H_
+#define _TOOMUCHDATAEXCEPTION_H_
+
+
 namespace Packets
 {
 
@@ -19,3 +23,5 @@ public:
 };
 
 }
+
+#endif

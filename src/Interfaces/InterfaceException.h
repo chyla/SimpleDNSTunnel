@@ -6,6 +6,9 @@
 #include <stdexcept>
 #include <string>
 
+#ifndef _INTERFACEEXCEPTION_H_
+#define _INTERFACEEXCEPTION_H_
+
 
 namespace Interfaces
 {
@@ -20,3 +23,5 @@ public:
 };
 
 }
+
+#endif

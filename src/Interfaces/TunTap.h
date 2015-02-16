@@ -9,6 +9,9 @@
 
 #include "Interface.h"
 
+#ifndef _TUNTAP_H_
+#define _TUNTAP_H_
+
 
 namespace Interfaces
 {
@@ -44,3 +47,5 @@ private:
 };
 
 }
+
+#endif

@@ -6,6 +6,9 @@
 #include <cstdint>
 #include <vector>
 
+#ifndef _PACKET_H_
+#define _PACKET_H_
+
 
 namespace Packets
 {
@@ -44,3 +47,5 @@ public:
 };
 
 }
+
+#endif
