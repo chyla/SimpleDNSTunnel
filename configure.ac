@@ -19,14 +19,18 @@ AC_INIT(SimpleDNSTunnel, master, adam@chyla.org)
 AM_INIT_AUTOMAKE
 AC_CONFIG_HEADERS([config.h])
 
+CFLAGS=''
+CXXFLAGS=''
+
 AC_LANG_CPLUSPLUS
-AX_CXX_COMPILE_STDCXX_11([noext])
 
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
 
 # Checks for libraries.
+AX_CXX_COMPILE_STDCXX_11([noext])
+
 AX_PTHREAD([], [AC_MSG_ERROR([cannot find pthread library])])
 
 AX_BOOST_BASE([1.55], [], [AC_MSG_ERROR([cannot find Boost libraries])])
