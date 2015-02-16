@@ -19,14 +19,27 @@ AC_INIT(SimpleDNSTunnel, master, adam@chyla.org)
 AM_INIT_AUTOMAKE
 AC_CONFIG_HEADERS([config.h])
 
+AC_ARG_ENABLE(debug,
+	[AS_HELP_STRING([--enable-debug], [Enable debug mode])],
+	[
+	  CFLAGS='-O0 -g'
+	  CXXFLAGS='-O0 -g'
+	  AC_DEFINE([HAVE_ENABLE_DEBUG], , [define if debug mode is enabled])
+	],
+	[
+	  CFLAGS='-O2'
+	  CXXFLAGS='-O2'
+	])	     
+
 AC_LANG_CPLUSPLUS
-AX_CXX_COMPILE_STDCXX_11([noext])
 
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
 
 # Checks for libraries.
+AX_CXX_COMPILE_STDCXX_11([noext])
+
 AX_PTHREAD([], [AC_MSG_ERROR([cannot find pthread library])])
 
 AX_BOOST_BASE([1.55], [], [AC_MSG_ERROR([cannot find Boost libraries])])
@@ -37,6 +50,7 @@ if test "$ax_cv_boost_program_options" != "yes"; then
 fi
 
 AX_BOOST_UNIT_TEST_FRAMEWORK
+AM_CONDITIONAL(HAVE_BOOST_UNIT_TEST_FRAMEWORK, [test "x$ax_cv_boost_unit_test_framework" = "xyes"]) 
 
 AX_BOOST_THREAD
 if test "$ax_cv_boost_thread" != "yes"; then
