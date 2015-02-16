@@ -22,7 +22,8 @@ public:
   virtual ~Encapsulator() = default;
 
   virtual void SetPartSize(size_t part_size);
-  virtual std::vector<std::unique_ptr<Packet>> Encapsulate(Packet::Data data) const;
+  virtual std::vector<std::unique_ptr<Packet>> Encapsulate(const Packet::Data &data) const;
+  virtual Packet::Data Decapsulate(const std::vector<std::unique_ptr<Packet>> &packets) const;
 
 protected:
   std::unique_ptr<Packet> prototype;

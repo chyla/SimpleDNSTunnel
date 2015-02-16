@@ -33,7 +33,7 @@ Encapsulator::SetPartSize(size_t part_size)
 
 
 vector<unique_ptr<Packet>>
-Encapsulator::Encapsulate(Packet::Data data) const
+Encapsulator::Encapsulate(const Packet::Data &data) const
 {
   const size_t size = (part_size == 0) ? prototype->GetMaximumDataSize() : part_size;
   vector<unique_ptr<Packet>> packets;
@@ -51,6 +51,22 @@ Encapsulator::Encapsulate(Packet::Data data) const
   }
 
   return packets;
+}
+
+
+Packet::Data
+Encapsulator::Decapsulate(const vector<unique_ptr<Packet>> &packets) const
+{
+  Packet::Data data;
+
+  for (auto it = packets.cbegin(); it != packets.cend(); it++)
+  {
+    const auto &packet = *it;
+    Packet::Data pd = packet->GetData();
+    data.insert(data.end(), pd.begin(), pd.end());
+  }
+
+  return data;
 }
 
 }
