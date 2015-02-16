@@ -19,8 +19,17 @@ AC_INIT(SimpleDNSTunnel, master, adam@chyla.org)
 AM_INIT_AUTOMAKE
 AC_CONFIG_HEADERS([config.h])
 
-CFLAGS=''
-CXXFLAGS=''
+AC_ARG_ENABLE(debug,
+	[AS_HELP_STRING([--enable-debug], [Enable debug mode])],
+	[
+	  CFLAGS='-O0 -g'
+	  CXXFLAGS='-O0 -g'
+	  AC_DEFINE([HAVE_ENABLE_DEBUG], , [define if debug mode is enabled])
+	],
+	[
+	  CFLAGS='-O2'
+	  CXXFLAGS='-O2'
+	])	     
 
 AC_LANG_CPLUSPLUS
 
