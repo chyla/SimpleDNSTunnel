@@ -33,7 +33,7 @@ Encapsulator::SetPartSize(size_t part_size)
 
 
 vector<unique_ptr<Packet>>
-Encapsulator::Encapsulate(Packet::Data data) const
+Encapsulator::Encapsulate(const Packet::Data &data) const
 {
   const size_t size = (part_size == 0) ? prototype->GetMaximumDataSize() : part_size;
   vector<unique_ptr<Packet>> packets;
