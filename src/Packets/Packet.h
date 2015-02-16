@@ -10,9 +10,6 @@
 #ifndef _PACKET_H_
 #define _PACKET_H_
 
-#ifndef _PACKET_H_
-#define _PACKET_H_
-
 
 namespace Packets
 {
