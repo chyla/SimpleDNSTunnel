@@ -6,10 +6,12 @@ check_PROGRAMS	= tests
 if HAVE_BOOST_UNIT_TEST_FRAMEWORK
 tests_SOURCES	= main.cpp \
 			ProgramOptions_ConfigFile.cpp \
-			PseudoDNS.cpp
+			PseudoDNS.cpp \
+			Encapsulator.cpp
 
 tests_LDADD	= ../src/Options/ProgramOptions.o \
 			../src/Packets/PseudoDNS.o \
+			../src/Packets/Encapsulator.o \
 			@BOOST_UNIT_TEST_FRAMEWORK_LIB@ \
 			@BOOST_PROGRAM_OPTIONS_LIB@ \
 			@BOOST_LOG_LIB@ \

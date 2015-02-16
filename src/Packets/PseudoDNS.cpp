@@ -170,4 +170,24 @@ PseudoDNS::Dump() const
   return dump;
 }
 
+
+int
+PseudoDNS::GetMaximumDataSize() const
+{
+  return MAX_DATA_SIZE;
+}
+
+
+unique_ptr<Packet>
+PseudoDNS::Clone() const
+{
+  unique_ptr<Packet> p(new PseudoDNS());
+
+  p->SetType(type);
+  p->SetControlType(control_type);
+  p->SetData(data);
+
+  return p;
+}
+
 }
