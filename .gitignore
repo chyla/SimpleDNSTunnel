@@ -30,4 +30,6 @@ stamp-h1
 tests/.deps/
 tests/Makefile
 tests/Makefile.in
-
+tests/tests
+src/Packets/.dirstamp
+src/Packets/.deps/
