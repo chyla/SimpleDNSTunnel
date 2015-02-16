@@ -10,6 +10,7 @@
 #include <cstring>
 #include <cerrno>
 #include <vector>
+#include <stdexcept>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -253,9 +254,9 @@ Socket::Socket(Socket::DomainType domain,
 	       int socket_fd,
 	       const std::string &remote_address,
 	       const int &remote_port) :
+  socket_fd(socket_fd),
   domain_type(domain),
   socket_type(type),
-  socket_fd(socket_fd),
   remote_address(remote_address),
   remote_port(remote_port)
 {
@@ -273,6 +274,8 @@ Socket::ToUnixType(DomainType domain)
   case DomainType::INET6:
     return PF_INET6;
   }
+
+  throw domain_error("Can't convert DomainType to unix type.");
 }
 
 
@@ -287,6 +290,8 @@ Socket::ToUnixType(SocketType type)
   case SocketType::STREAM:
     return SOCK_STREAM;
   }
+
+  throw domain_error("Can't convert SocketType to unix type.");
 }
 
 
