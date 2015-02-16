@@ -6,6 +6,10 @@
 #include <stdexcept>
 #include <string>
 
+#ifndef _WRONGMAGICNUMBEREXCEPTION_H_
+#define _WRONGMAGICNUMBEREXCEPTION_H_
+
+
 namespace Packets
 {
 
@@ -19,3 +23,5 @@ public:
 };
 
 }
+
+#endif

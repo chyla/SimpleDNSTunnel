@@ -6,6 +6,9 @@
 #include <stdexcept>
 #include <string>
 
+#ifndef _CORRUPTEDPACKETEXCEPTION_H_
+#define _CORRUPTEDPACKETEXCEPTION_H_
+
 namespace Packets
 {
 
@@ -19,3 +22,5 @@ public:
 };
 
 }
+
+#endif
