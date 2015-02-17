@@ -664,7 +664,6 @@ BOOST_AUTO_TEST_CASE( FillPacketFromDump_CorruptedPacket_WrongPacketSize3 )
 
 BOOST_AUTO_TEST_CASE( FillPacketFromDump_CorruptedPacket_WrongPacketSize4 )
 {
-  constexpr unsigned char any_data = 0xFA;
   Packet::Data packet_dump {
     0x14,
   };
