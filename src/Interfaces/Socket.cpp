@@ -314,7 +314,7 @@ vector<Socket::ByteOfStructSockaddr>
 Socket::ToBinaryForm(DomainType domain_type, const string &address, const int &port)
 {
   vector<ByteOfStructSockaddr> v;
-  int n, err;
+  int n;
 
   BOOST_LOG_TRIVIAL(info) << "Converting " + address + " to binary form.";
   if (domain_type == DomainType::INET)
@@ -325,9 +325,9 @@ Socket::ToBinaryForm(DomainType domain_type, const string &address, const int &p
     sockaddr_in *s = reinterpret_cast<sockaddr_in*>(v.data());
     s->sin_family = AF_INET;
     s->sin_port = htons(port);
-    int ret = inet_aton(address.c_str(), &s->sin_addr);
 
-    if (ret == 0)
+    const int err = inet_aton(address.c_str(), &s->sin_addr);
+    if (err == 0)
       throw InterfaceException(strerror(errno));
   }
   else if (domain_type == DomainType::INET6)
@@ -339,7 +339,7 @@ Socket::ToBinaryForm(DomainType domain_type, const string &address, const int &p
     s->sin6_family = AF_INET6;
     s->sin6_port = htons(port);
 
-    err = inet_pton(AF_INET6, address.c_str(), s->sin6_addr.s6_addr);
+    const int err = inet_pton(AF_INET6, address.c_str(), s->sin6_addr.s6_addr);
     if (err == 0)
       throw InterfaceException("Invalid IPv6 network address: " + address);
     else if (err < 0)
