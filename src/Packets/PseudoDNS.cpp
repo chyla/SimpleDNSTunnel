@@ -42,7 +42,7 @@ PseudoDNS::GetType() const
 void
 PseudoDNS::SetControlType(const Control &control)
 {
-  if (type == Type::DATA)
+  if (type == Type::DATA && control != Control::NONE)
     throw CantSetControlTypeException();
 
   control_type = control;

@@ -673,4 +673,14 @@ BOOST_AUTO_TEST_CASE( FillPacketFromDump_CorruptedPacket_WrongPacketSize4 )
   BOOST_CHECK_THROW(packet.FillFromDump(packet_dump), CorruptedPacketException);
 }
 
+
+BOOST_AUTO_TEST_CASE( AllowSetControlTypeNoneForDataPacket )
+{
+  PseudoDNS packet(Packet::Type::DATA);
+
+  packet.SetControlType(Packet::Control::NONE);
+
+  BOOST_CHECK( packet.GetControlType() == Packet::Control::NONE );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
