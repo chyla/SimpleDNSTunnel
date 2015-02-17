@@ -360,13 +360,13 @@ Socket::FromBinaryForm(DomainType domain_type, const sockaddr *addr)
   {
     auto p = reinterpret_cast<const sockaddr_in*>(addr);
     address = InAddrBinaryAddressToTextForm(domain_type, reinterpret_cast<const void*>(&p->sin_addr));
-    port = p->sin_port;
+    port = ntohs(p->sin_port);
   }
   else if (domain_type == DomainType::INET6)
   {
     auto p = reinterpret_cast<const sockaddr_in6*>(addr);
     address = InAddrBinaryAddressToTextForm(domain_type, reinterpret_cast<const void*>(&p->sin6_addr));
-    port = p->sin6_port;
+    port = ntohs(p->sin6_port);
   }
   
   return make_tuple(address, port);
