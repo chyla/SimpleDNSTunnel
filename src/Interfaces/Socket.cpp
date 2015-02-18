@@ -73,6 +73,14 @@ Socket::Connect(const std::string &address, const int &port)
 
   remote_address = address;
   remote_port = port;
+  is_connected = true;
+}
+
+
+bool
+Socket::IsConnected() const
+{
+  return is_connected;
 }
 
 
@@ -258,7 +266,8 @@ Socket::Socket(Socket::DomainType domain,
   domain_type(domain),
   socket_type(type),
   remote_address(remote_address),
-  remote_port(remote_port)
+  remote_port(remote_port),
+  is_connected(false)
 {
 }
 
