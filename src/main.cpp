@@ -29,7 +29,9 @@ main(int argc, char *argv[])
 			   ),
       keywords::auto_flush = true
     );
-    BOOST_LOG_TRIVIAL(info) << "Starting SimpleDNSTunnel";
+    BOOST_LOG_TRIVIAL(info) << "SimpleDNSTunnel";
+    BOOST_LOG_TRIVIAL(info) << "Copyright 2014-2015 Adam Chyła, adam@chyla.org";
+    BOOST_LOG_TRIVIAL(info) << "All rights reserved. Distributed under the terms of the MIT License.";
 
     Options::ProgramOptions options;
     options.SetCommandLineOptions(argc, const_cast<const char**>(argv));
