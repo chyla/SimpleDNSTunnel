@@ -11,6 +11,10 @@
 
 #include "Options/ProgramOptions.h"
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 using namespace std;
 namespace expr = boost::log::expressions;
 namespace keywords = boost::log::keywords;
@@ -30,6 +34,9 @@ main(int argc, char *argv[])
       keywords::auto_flush = true
     );
     BOOST_LOG_TRIVIAL(info) << "SimpleDNSTunnel";
+#ifdef HAVE_CONFIG_H
+    BOOST_LOG_TRIVIAL(info) << "Version: " << VERSION;
+#endif
     BOOST_LOG_TRIVIAL(info) << "Copyright 2014-2015 Adam Chyła, adam@chyla.org";
     BOOST_LOG_TRIVIAL(info) << "All rights reserved. Distributed under the terms of the MIT License.";
 
