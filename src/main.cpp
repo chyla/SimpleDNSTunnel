@@ -10,12 +10,23 @@
 #include <boost/log/trivial.hpp>
 
 #include "Options/ProgramOptions.h"
+#include "Interfaces/TunTap.h"
+#include "Interfaces/Socket.h"
+#include "Packets/PseudoDNS.h"
+#include "PrimitiveReaderAndWriter.h"
+
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
 
 using namespace std;
+using namespace Interfaces;
+using namespace Packets;
+
 namespace expr = boost::log::expressions;
 namespace keywords = boost::log::keywords;
 
@@ -50,6 +61,22 @@ main(int argc, char *argv[])
       cout << options.GetHelpMessage() << "\n";
       return 0;
     }
+
+    // create interfaces
+    unique_ptr<TunTap> tuntap(TunTap::Create(TunTap::InterfaceType::TUN));
+    unique_ptr<Socket> socket(Socket::Create(Socket::DomainType::INET,
+					     Socket::SocketType::DGRAM));
+
+    if (options.GetMode() == Options::ProgramOptions::Mode::CLIENT)
+      socket->Connect(options.GetAddress(), options.GetPort());
+    else
+      socket->Bind(options.GetPort(), options.GetAddress());
+
+    // start tunneling
+    unique_ptr<Packet> prototype(new PseudoDNS());
+    PrimitiveReaderAndWriter rw(tuntap, socket, prototype);
+    rw.Run();
+
   } catch (exception &ex) {
     std::cerr << ex.what() << '\n';
     BOOST_LOG_TRIVIAL(fatal) << ex.what();
