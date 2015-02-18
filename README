@@ -1,0 +1,46 @@
+Introduction
+============
+
+Create DNS tunnel between two hosts.
+
+Git repository: https://bitbucket.org/achy/simplednstunnel
+
+
+Building and installing
+=======================
+
+./configure --prefix=/usr/local
+make
+make install
+
+
+Example configuration
+======================
+
+ IMPORTANT NOTE
+ --------------
+  Client should first send packet to the server.
+  Server will then know client ip.
+
+Server IP: 192.168.122.73
+
+Server
+------
+
+  # run server
+  bin/sdnst --mode server --address 192.168.122.73
+
+  # assing ip address to interface tunX (see log file for interface number)
+  ifconfig tun0 10.0.0.2
+
+  # add route to second host
+  route add -host 10.0.0.1 tun0
+
+
+Client
+------
+
+  bin/sdnst --mode client --address 192.168.122.73
+  ifconfig tun0 10.0.0.1
+  route add  -host 10.0.0.2 tun0
+
