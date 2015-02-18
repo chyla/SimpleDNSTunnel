@@ -18,7 +18,7 @@ namespace Packets
 class PseudoDNS : public Packet
 {
 public:
-  static constexpr int MAX_DATA_SIZE = 255;
+  static constexpr int MAX_DATA_SIZE = 63;
 
   PseudoDNS(const Type &type = Type::DATA);
   virtual ~PseudoDNS() = default;
