@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Adam Chyła, adam@chyla.org
+ * Copyright 2014-2015 Adam Chyła, adam@chyla.org
  * All rights reserved. Distributed under the terms of the MIT License.
  */
 
@@ -664,7 +664,6 @@ BOOST_AUTO_TEST_CASE( FillPacketFromDump_CorruptedPacket_WrongPacketSize3 )
 
 BOOST_AUTO_TEST_CASE( FillPacketFromDump_CorruptedPacket_WrongPacketSize4 )
 {
-  constexpr unsigned char any_data = 0xFA;
   Packet::Data packet_dump {
     0x14,
   };

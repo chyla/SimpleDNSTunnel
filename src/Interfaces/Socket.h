@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Adam Chyła, adam@chyla.org
+ * Copyright 2014-2015 Adam Chyła, adam@chyla.org
  * All rights reserved. Distributed under the terms of the MIT License.
  */
 
@@ -41,7 +41,10 @@ public:
 
   static std::unique_ptr<Socket> Create(DomainType domain, SocketType type);
   void Bind(const int &port, const std::string &address);
+
   void Connect(const std::string &address, const int &port);
+  bool IsConnected() const;
+
   void Listen(const int &backlog);
   std::unique_ptr<Socket> Accept();
 
@@ -77,6 +80,7 @@ private:
   std::string remote_address;
   int remote_port;
 
+  bool is_connected;
   bool close_executed;
 
   static int ToUnixType(DomainType domain);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Adam Chyła, adam@chyla.org
+ * Copyright 2014-2015 Adam Chyła, adam@chyla.org
  * All rights reserved. Distributed under the terms of the MIT License.
  */
 
