@@ -10,7 +10,6 @@
 #include "WrongMagicNumberException.h"
 
 #include <utility>
-#include <algorithm>
 
 using namespace std;
 
@@ -103,11 +102,10 @@ PseudoDNS::FillFromDump(const Packet::Data &dump)
     {dump.size() - 2, 0x00},
     {dump.size() - 1, 0x01}
   };
-  for_each(position_value.begin(), position_value.end(),
-	   [&dump](pair<int, unsigned char> &p) {
-	     if (dump.at(p.first) != p.second)
-	       throw CorruptedPacketException();
-	   });
+
+  for (auto &p : position_value)
+    if (dump.at(p.first) != p.second)
+      throw CorruptedPacketException();
 
   // Check data size
   constexpr int data_position = 13;
