@@ -42,7 +42,7 @@ AX_CXX_COMPILE_STDCXX_11([noext])
 
 AX_PTHREAD([], [AC_MSG_ERROR([cannot find pthread library])])
 
-AX_BOOST_BASE([1.55], [], [AC_MSG_ERROR([cannot find Boost libraries])])
+AX_BOOST_BASE([1.54], [], [AC_MSG_ERROR([cannot find Boost libraries])])
 
 AX_BOOST_PROGRAM_OPTIONS
 if test "$ax_cv_boost_program_options" != "yes"; then
@@ -78,6 +78,9 @@ if test "$ax_cv_boost_regex" != "yes"; then
 fi
 
 AX_BOOST_LOG
+if test "x$ax_cv_boost_log" != "xyes"; then
+   AC_MSG_ERROR([cannot find the Boost Log Library])
+fi
 
 AX_BOOST_LOG_SETUP
 

@@ -14,6 +14,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <sys/select.h>
 
 using namespace std;
 
@@ -254,6 +255,23 @@ Socket::Close()
 
   socket_fd = -1;
   close_executed = true;
+}
+
+
+
+bool
+Socket::IsReadyToRead() const
+{
+  fd_set fds;
+  timeval tv = {0, 0};
+  FD_ZERO(&fds);
+  FD_SET(socket_fd, &fds);
+
+  int err = select(socket_fd + 1, &fds, 0, 0, &tv);
+  if (err < 0)
+    throw InterfaceException(strerror(errno));
+
+  return err;
 }
 
 

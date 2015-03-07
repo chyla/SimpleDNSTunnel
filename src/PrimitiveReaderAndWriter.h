@@ -16,17 +16,18 @@
 class PrimitiveReaderAndWriter
 {
 public:
-  PrimitiveReaderAndWriter(std::unique_ptr<Interfaces::TunTap> &tuntap,
-			   std::unique_ptr<Interfaces::Socket> &socket,
-                           std::unique_ptr<Packets::Packet> &prototype);
+  PrimitiveReaderAndWriter(std::shared_ptr<Interfaces::TunTap> &tuntap,
+			   std::shared_ptr<Interfaces::Socket> &socket,
+                           std::shared_ptr<Packets::Packet> &prototype);
   virtual ~PrimitiveReaderAndWriter() = default;
 
   virtual void Run();
+  virtual void Stop();
 
 protected:
-  std::unique_ptr<Interfaces::TunTap> tuntap;
-  std::unique_ptr<Interfaces::Socket> socket;
-  std::unique_ptr<Packets::Packet> prototype;
+  std::shared_ptr<Interfaces::TunTap> tuntap;
+  std::shared_ptr<Interfaces::Socket> socket;
+  std::shared_ptr<Packets::Packet> prototype;
   std::mutex prototype_mutex;
 
   bool running;

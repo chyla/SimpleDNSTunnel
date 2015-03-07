@@ -14,6 +14,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <sys/select.h>
 
 #include "TunTap.h"
 #include "InterfaceException.h"
@@ -99,13 +100,31 @@ TunTap::Write(const void *source, const size_t &bufferLength)
 }
 
 
+bool
+TunTap::IsReadyToRead() const
+{
+  fd_set fds;
+  timeval tv = {0, 0};
+  FD_ZERO(&fds);
+  FD_SET(fd, &fds);
+
+  int err = select(fd + 1, &fds, 0, 0, &tv);
+  if (err < 0)
+    throw InterfaceException(strerror(errno));
+
+  return err;
+}
+
+
 void
 TunTap::Close()
 {
+  BOOST_LOG_TRIVIAL(info) << "Closing TunTap descriptor: " << fd;
   int err = close(fd);
   if (err < 0)
     throw InterfaceException(strerror(errno));
 
+  BOOST_LOG_TRIVIAL(info) << "TunTap descriptor " << fd << " closed.";
   close_executed = true;
 }
 

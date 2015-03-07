@@ -18,13 +18,13 @@ using namespace Interfaces;
 using namespace Packets;
 
 
-PrimitiveReaderAndWriter::PrimitiveReaderAndWriter(unique_ptr<TunTap> &tuntap,
-                                                   unique_ptr<Socket> &socket,
-                                                   unique_ptr<Packet> &prototype)
+PrimitiveReaderAndWriter::PrimitiveReaderAndWriter(shared_ptr<TunTap> &tuntap,
+                                                   shared_ptr<Socket> &socket,
+                                                   shared_ptr<Packet> &prototype)
  :
-  tuntap(move(tuntap)),
-  socket(move(socket)),
-  prototype(move(prototype)),
+  tuntap(tuntap),
+  socket(socket),
+  prototype(prototype),
   running(false)
 {
 }
@@ -45,6 +45,14 @@ PrimitiveReaderAndWriter::Run()
 
 
 void
+PrimitiveReaderAndWriter::Stop()
+{
+  BOOST_LOG_TRIVIAL(info) << "Stopping threads...";
+  running = false;
+}
+
+
+void
 PrimitiveReaderAndWriter::ReadFromTunAndWriteToSocket() try
 {
   Encapsulator encapsulator(ClonePrototype());
@@ -58,6 +66,12 @@ PrimitiveReaderAndWriter::ReadFromTunAndWriteToSocket() try
       continue;
     }
 
+    if (!socket->IsReadyToRead())
+    {
+      usleep(50);
+      continue;
+    }
+    
     data.resize(150);
     const int r = tuntap->Read(data.data(), data.size());
     data.resize(r);
@@ -93,6 +107,12 @@ PrimitiveReaderAndWriter::ReadFromSocketAndWriteToTun() try
 
   while (running)
   {
+    if (!socket->IsReadyToRead())
+    {
+      usleep(50);
+      continue;
+    }
+
     dump.resize(150);
     const int r = socket->RecvFrom(dump.data(), dump.size(), address, port);
     dump.resize(r);
