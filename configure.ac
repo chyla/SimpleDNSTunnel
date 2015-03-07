@@ -78,6 +78,9 @@ if test "$ax_cv_boost_regex" != "yes"; then
 fi
 
 AX_BOOST_LOG
+if test "x$ax_cv_boost_log" != "xyes"; then
+   AC_MSG_ERROR([cannot find the Boost Log Library])
+fi
 
 AX_BOOST_LOG_SETUP
 
