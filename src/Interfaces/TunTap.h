@@ -35,6 +35,8 @@ public:
   size_t Read(void *destination, const size_t &bufferLength);
   void Write(const void *source, const size_t &bufferLength);
 
+  bool IsReadyToRead() const;
+  
   void Close();
 
 private:

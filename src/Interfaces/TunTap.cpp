@@ -14,6 +14,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <sys/select.h>
 
 #include "TunTap.h"
 #include "InterfaceException.h"
@@ -96,6 +97,22 @@ TunTap::Write(const void *source, const size_t &bufferLength)
 
   if (n < 0)
     throw InterfaceException(strerror(errno));
+}
+
+
+bool
+TunTap::IsReadyToRead() const
+{
+  fd_set fds;
+  timeval tv = {0, 0};
+  FD_ZERO(&fds);
+  FD_SET(fd, &fds);
+
+  int err = select(fd + 1, &fds, 0, 0, &tv);
+  if (err < 0)
+    throw InterfaceException(strerror(errno));
+
+  return err;
 }
 
 

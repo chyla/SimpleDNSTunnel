@@ -63,6 +63,8 @@ public:
   size_t RecvFrom(void *destination, const size_t &bufferLength, std::string &address, int &port, const int &flags = 0);
   void SendTo(const void *source, const size_t &bufferLength, const std::string &address, const int &port, const int &flags = 0);
 
+  bool IsReadyToRead() const;
+
   void Close();
 
 private:
