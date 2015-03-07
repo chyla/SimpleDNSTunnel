@@ -22,6 +22,7 @@ public:
   virtual ~PrimitiveReaderAndWriter() = default;
 
   virtual void Run();
+  virtual void Stop();
 
 protected:
   std::unique_ptr<Interfaces::TunTap> tuntap;

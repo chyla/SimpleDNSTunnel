@@ -45,6 +45,14 @@ PrimitiveReaderAndWriter::Run()
 
 
 void
+PrimitiveReaderAndWriter::Stop()
+{
+  BOOST_LOG_TRIVIAL(info) << "Stopping threads...";
+  running = false;
+}
+
+
+void
 PrimitiveReaderAndWriter::ReadFromTunAndWriteToSocket() try
 {
   Encapsulator encapsulator(ClonePrototype());
