@@ -92,6 +92,9 @@ main(int argc, char *argv[])
 
     rw.Run();
 
+    tuntap->Close();
+    socket->Close();
+
   } catch (exception &ex) {
     std::cerr << ex.what() << '\n';
     BOOST_LOG_TRIVIAL(fatal) << ex.what();
