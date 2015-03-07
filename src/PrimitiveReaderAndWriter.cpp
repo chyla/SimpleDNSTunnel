@@ -18,13 +18,13 @@ using namespace Interfaces;
 using namespace Packets;
 
 
-PrimitiveReaderAndWriter::PrimitiveReaderAndWriter(unique_ptr<TunTap> &tuntap,
-                                                   unique_ptr<Socket> &socket,
-                                                   unique_ptr<Packet> &prototype)
+PrimitiveReaderAndWriter::PrimitiveReaderAndWriter(shared_ptr<TunTap> &tuntap,
+                                                   shared_ptr<Socket> &socket,
+                                                   shared_ptr<Packet> &prototype)
  :
-  tuntap(move(tuntap)),
-  socket(move(socket)),
-  prototype(move(prototype)),
+  tuntap(tuntap),
+  socket(socket),
+  prototype(prototype),
   running(false)
 {
 }

@@ -73,8 +73,8 @@ main(int argc, char *argv[])
     }
 
     // create interfaces
-    unique_ptr<TunTap> tuntap(TunTap::Create(TunTap::InterfaceType::TUN));
-    unique_ptr<Socket> socket(Socket::Create(Socket::DomainType::INET,
+    shared_ptr<TunTap> tuntap(TunTap::Create(TunTap::InterfaceType::TUN));
+    shared_ptr<Socket> socket(Socket::Create(Socket::DomainType::INET,
 					     Socket::SocketType::DGRAM));
 
     if (options.GetMode() == Options::ProgramOptions::Mode::CLIENT)
@@ -83,7 +83,7 @@ main(int argc, char *argv[])
       socket->Bind(options.GetPort(), options.GetAddress());
 
     // start tunneling
-    unique_ptr<Packet> prototype(new PseudoDNS());
+    shared_ptr<Packet> prototype(new PseudoDNS());
     PrimitiveReaderAndWriter rw(tuntap, socket, prototype);
 
     // register signal handler
