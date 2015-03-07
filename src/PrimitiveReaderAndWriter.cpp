@@ -58,6 +58,12 @@ PrimitiveReaderAndWriter::ReadFromTunAndWriteToSocket() try
       continue;
     }
 
+    if (!socket->IsReadyToRead())
+    {
+      usleep(50);
+      continue;
+    }
+    
     data.resize(150);
     const int r = tuntap->Read(data.data(), data.size());
     data.resize(r);
@@ -93,6 +99,12 @@ PrimitiveReaderAndWriter::ReadFromSocketAndWriteToTun() try
 
   while (running)
   {
+    if (!socket->IsReadyToRead())
+    {
+      usleep(50);
+      continue;
+    }
+
     dump.resize(150);
     const int r = socket->RecvFrom(dump.data(), dump.size(), address, port);
     dump.resize(r);
