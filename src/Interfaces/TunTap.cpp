@@ -119,10 +119,12 @@ TunTap::IsReadyToRead() const
 void
 TunTap::Close()
 {
+  BOOST_LOG_TRIVIAL(info) << "Closing TunTap descriptor: " << fd;
   int err = close(fd);
   if (err < 0)
     throw InterfaceException(strerror(errno));
 
+  BOOST_LOG_TRIVIAL(info) << "TunTap descriptor " << fd << " closed.";
   close_executed = true;
 }
 
