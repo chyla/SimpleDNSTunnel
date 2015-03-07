@@ -8,6 +8,7 @@
 #include <boost/log/expressions.hpp>
 #include <boost/log/utility/setup/file.hpp>
 #include <boost/log/trivial.hpp>
+#include <signal.h>
 
 #include "Options/ProgramOptions.h"
 #include "Interfaces/TunTap.h"
@@ -30,6 +31,15 @@ using namespace Packets;
 namespace expr = boost::log::expressions;
 namespace keywords = boost::log::keywords;
 
+PrimitiveReaderAndWriter *rw_ptr;
+
+
+void sig_handler(int signum)
+{
+  BOOST_LOG_TRIVIAL(info) << "Received signal: " << signum;
+  rw_ptr->Stop();
+}
+
 
 int
 main(int argc, char *argv[])
@@ -50,6 +60,9 @@ main(int argc, char *argv[])
 #endif
     BOOST_LOG_TRIVIAL(info) << "Copyright 2014-2015 Adam Chyła, adam@chyla.org";
     BOOST_LOG_TRIVIAL(info) << "All rights reserved. Distributed under the terms of the MIT License.";
+
+    // register signal handler
+    signal(SIGINT, sig_handler);
 
     Options::ProgramOptions options;
     options.SetCommandLineOptions(argc, const_cast<const char**>(argv));
@@ -75,6 +88,7 @@ main(int argc, char *argv[])
     // start tunneling
     unique_ptr<Packet> prototype(new PseudoDNS());
     PrimitiveReaderAndWriter rw(tuntap, socket, prototype);
+    rw_ptr = &rw;
     rw.Run();
 
   } catch (exception &ex) {
